@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ICredential, IValidCredential } from '../../interfaces/ICredential';
+import { ICredential, IValidCredential } from '../../models/interfaces/ICredential';
 
 import Button from '../ui/Button';
 import Input from './Input';

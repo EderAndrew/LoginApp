@@ -5,10 +5,11 @@ import { Colors } from './src/constants/styles';
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import { WelcomeScreen } from './src/screens/WelcomeScreen';
+import { RootStackParamList } from './src/models/types/RootStackParamList';
 
 
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 function AuthStack() {
   return (

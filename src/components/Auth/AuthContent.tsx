@@ -1,17 +1,22 @@
 import { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native'
 
 import FlatButton from '../ui/FlatButton';
 import {AuthForm} from './AuthForm';
 import { Colors } from '../../constants/styles';
-import { ICredential } from '../../interfaces/ICredential';
+import { ICredential } from '../../models/interfaces/ICredential';
+import { RootStackParamList } from '../../models/types/RootStackParamList';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { ILogin } from '../../models/interfaces/ILogin';
 
 type Props = {
-    isLogin: boolean,
-    onAuthenticate: (email: string, password: string) => void
+    isLogin?: boolean,
+    onAuthenticate: (login: ILogin) => void
 }
 
 export const  AuthContent = ({ isLogin, onAuthenticate }:Props) => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
 
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     email: false,
@@ -20,8 +25,12 @@ export const  AuthContent = ({ isLogin, onAuthenticate }:Props) => {
     confirmPassword: false,
   });
 
-  function switchAuthModeHandler() {
-    // Todo
+  const switchAuthModeHandler =() => {
+    if(isLogin){
+      navigation.navigate('Signup')
+    }else{
+      navigation.navigate('Login')
+    }
   }
 
   function submitHandler(credentials: ICredential) {
@@ -49,13 +58,13 @@ export const  AuthContent = ({ isLogin, onAuthenticate }:Props) => {
       });
       return;
     }
-    onAuthenticate(email, password)
+    onAuthenticate({email, password})
   }
 
   return (
     <View style={styles.authContent}>
       <AuthForm
-        isLogin={isLogin}
+        isLogin={isLogin as boolean}
         onSubmit={submitHandler}
         credentialsInvalid={credentialsInvalid}
       />
