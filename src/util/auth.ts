@@ -9,20 +9,21 @@ export const authenticate = async(mode: 'signInWithPassword' | 'signUp', email: 
         returnSecureToken: true
     })
 
-    console.log(resp.data)
+    const token = resp.data.idToken
+    return token
 }
 
-export const createUser = async(email: string, password: string) => {
+export const createUser = (email: string, password: string) => {
     try{
-        await authenticate('signUp',email, password)
+        return authenticate('signUp',email, password)
     }catch(err){
         console.log(err)
     }
 }
 
-export const login = async (email: string, password: string) => {
+export const login = (email: string, password: string) => {
     try{
-        await authenticate('signInWithPassword', email, password)
+        return authenticate('signInWithPassword', email, password)
     }catch(err){
         console.log(err)
     }
